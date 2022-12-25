@@ -1,3 +1,6 @@
+// Author: VietAWS
+// Youtube Channel: VietAWS
+
 // load the SDK for JavaScript
 const AWS = require('aws-sdk');
 

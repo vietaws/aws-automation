@@ -1,3 +1,6 @@
+// Author: VietAWS
+// Youtube Channel: VietAWS
+
 import { RDSClient, StartDBClusterCommand } from '@aws-sdk/client-rds'; // ES Modules import
 
 const client = new RDSClient({

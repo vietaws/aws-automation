@@ -4,8 +4,9 @@
 // load the SDK for JavaScript
 import {
   EC2Client,
-  StartInstancesCommand,
+  StopInstancesCommand,
   DescribeInstancesCommand,
+  TerminateInstancesCommand,
 } from '@aws-sdk/client-ec2';
 
 // a client can be shared by different commands.
@@ -31,19 +32,19 @@ export const handler = async (event) => {
 
   const ec2InstanceIds = [];
   ec2InstancesList.Reservations.forEach((id) => {
-    if (id.Instances[0].State.Name === 'stopped') {
+    if (id.Instances[0].State.Name === 'running') {
       ec2InstanceIds.push(id.Instances[0].InstanceId);
     }
   });
 
   if (ec2InstanceIds.length > 0) {
-    const command = new StartInstancesCommand({
+    const command = new StopInstancesCommand({
       InstanceIds: ec2InstanceIds,
     });
 
     const response = await client.send(command);
   } else {
-    console.log('There is no EC2 Instance to Start!');
+    console.log('There is no EC2 Instance to Stop!');
   }
 
   const result = {

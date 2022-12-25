@@ -1,3 +1,6 @@
+// Author: VietAWS
+// Youtube Channel: VietAWS
+
 import {
   AutoScalingClient,
   UpdateAutoScalingGroupCommand,
