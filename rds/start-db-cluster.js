@@ -1,4 +1,4 @@
-import { RDSClient, StopDBInstanceCommand } from '@aws-sdk/client-rds'; // ES Modules import
+import { RDSClient, StartDBClusterCommand } from '@aws-sdk/client-rds'; // ES Modules import
 
 const client = new RDSClient({
   region: 'ap-southeast-1',
@@ -14,8 +14,8 @@ export const handler = async (event) => {
     DBInstanceIdentifier: 'aws-rds-mysql-dms-demo',
   };
 
-  // const command = new StopDBClusterCommand(inputDBCluster);
-  const command = new StopDBInstanceCommand(inputDBInstance);
+  const command = new StartDBClusterCommand(inputDBCluster);
+  // const command = new StopDBInstanceCommand(inputDBInstance)
   const response = await client.send(command);
 
   const result = {
