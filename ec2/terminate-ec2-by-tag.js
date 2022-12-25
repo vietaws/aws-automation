@@ -18,8 +18,8 @@ export const handler = async (event) => {
   const filters = {
     Filters: [
       {
-        Name: 'tag:env',
-        Values: ['demo'],
+        Name: 'tag:clean',
+        Values: ['true'],
       },
     ],
   };
