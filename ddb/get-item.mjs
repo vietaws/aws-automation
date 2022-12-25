@@ -7,6 +7,16 @@ import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 const client = new DynamoDB({});
 const ddbDocClient = DynamoDBDocument.from(client); // client is DynamoDB client
 
+/*
+  =
+  <
+  >
+  <=
+  >=
+  between
+  begins_with
+*/
+
 const handler = async (event, context) => {
   // Call using full client.
   try {

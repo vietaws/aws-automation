@@ -1,29 +1,37 @@
 //src: https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocument, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 // import { nanoid } from 'nanoid';
+
+//Between
 
 // Full DynamoDB Client
 const client = new DynamoDB({});
 const ddbDocClient = DynamoDBDocument.from(client); // client is DynamoDB client
 
-// Call using full client.
 const handler = async (event, context) => {
+  // Call using full client.
   try {
-    const res = await ddbDocClient.put({
+    const res = await ddbDocClient.query({
       TableName: 'vietaws-pk-sk-demo',
-      Item: {
-        PK: 'AWS',
-        // SK: new Date().toISOString(),
-        SK: 'USER#vic',
-        content: 'Demo Query VietAWS',
+      KeyConditionExpression:
+        '#hkey = :hvalue AND #rkey BETWEEN :start and :end',
+      ExpressionAttributeNames: {
+        '#hkey': 'PK',
+        '#rkey': 'SK',
       },
-      ConditionExpression: `attribute_not_exists(PK) AND attribute_not_exists(SK)`,
+      ExpressionAttributeValues: {
+        ':hvalue': 'number-demo',
+        ':start': '2',
+        ':end': '4',
+      },
+      // ConsistentRead: true,
       ReturnConsumedCapacity: 'TOTAL',
     });
+    console.log(`${res.Items.length} Items: ${JSON.stringify(res.Items)}`);
     console.log(
       // `Created item successfully!`
-      `Created item successfully! WCU: ${res.ConsumedCapacity.CapacityUnits}`
+      `Get item successfully! WCU: ${res.ConsumedCapacity.CapacityUnits}`
     );
   } catch (error) {
     if (error instanceof Error) console.log(error.message);
@@ -31,4 +39,5 @@ const handler = async (event, context) => {
 };
 
 handler();
+
 export { handler };
