@@ -15,15 +15,15 @@ const handler = async (event, context) => {
     const res = await ddbDocClient.query({
       TableName: 'vietaws-pk-sk-demo',
       KeyConditionExpression:
-        '#hkey = :hvalue AND #rkey BETWEEN :start and :end',
+        '#hkey = :hvalue AND #rkey between :start and :end',
       ExpressionAttributeNames: {
         '#hkey': 'PK',
         '#rkey': 'SK',
       },
       ExpressionAttributeValues: {
-        ':hvalue': 'number-demo',
-        ':start': '2',
-        ':end': '4',
+        ':hvalue': 'AWS',
+        ':start': 'a',
+        ':end': 'kevin',
       },
       // ConsistentRead: true,
       ReturnConsumedCapacity: 'TOTAL',
