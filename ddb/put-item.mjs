@@ -15,8 +15,8 @@ const handler = async (event, context) => {
       Item: {
         PK: 'AWS',
         // SK: new Date().toISOString(),
-        SK: 'volvo',
-        content: 'Demo Query VietAWS',
+        SK: 'total',
+        no: 0,
       },
       ConditionExpression: `attribute_not_exists(PK) AND attribute_not_exists(SK)`,
       ReturnConsumedCapacity: 'TOTAL',

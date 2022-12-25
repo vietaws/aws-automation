@@ -4,9 +4,6 @@
 //src: https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
-// import { nanoid } from 'nanoid';
-
-//Between
 
 // Full DynamoDB Client
 const client = new DynamoDB({});
@@ -19,16 +16,22 @@ const handler = async (event, context) => {
       TableName: 'vietaws-pk-sk-demo',
       KeyConditionExpression:
         '#hkey = :hvalue AND #rkey between :start and :end',
+      ProjectionExpression: 'SK, #level',
+      FilterExpression: '#filter1 >= :filter1',
       ExpressionAttributeNames: {
         '#hkey': 'PK',
         '#rkey': 'SK',
+        '#level': 'level',
+        '#filter1': 'level',
       },
       ExpressionAttributeValues: {
-        ':hvalue': 'number-demo',
-        ':start': '2',
-        ':end': '4',
+        ':hvalue': 'AWS',
+        ':start': 'a',
+        ':end': 'z',
+        ':filter1': 100,
       },
-      // ConsistentRead: true,
+
+      ConsistentRead: true,
       ReturnConsumedCapacity: 'TOTAL',
     });
     console.log(`${res.Items.length} Items: ${JSON.stringify(res.Items)}`);
